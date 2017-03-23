@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1490283899472.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6B421A36",
+    "lastKnownWriteTime" : 8303549334773834355,
+    "last_content_update" : 1490283899472,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "5BEF8216",
+        "caption" : "diamonds",
+        "contentUrl" : "grid_resource/gridviewer.html?env=package%3Aggplot2&obj=diamonds&cache_key=5BEF8216",
+        "displayedObservations" : 53940,
+        "environment" : "package:ggplot2",
+        "object" : "diamonds",
+        "preview" : 0,
+        "totalObservations" : 53940,
+        "variables" : 10
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

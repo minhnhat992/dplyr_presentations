@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "<style>\nbody {\n    overflow: scroll;\n}\n</style>\n\n\nData Wrangling with R\n========================================================\nauthor: Minh Bui\ndate: 3/24/2017\nautosize: true\ntransition: zoom\nfont-family: \"Arial\"\n\n\n\nSo, What is Data Wrangling ?\n========================================================\nManipulate your \"raw\" data into different forms\n\nExamples\n\n* Filtering/sorting data\n\n* Calculate new columns from existing Ones\n\n* Removing or rename empty cells/values\n\n* Merge/join different table together\n\n* Create Excel-like pivot tables to summarize your data\n\n\n\nWhy is it important ?\n========================================================\n\n- 80% of a data scientist's time will be spent on cleaning data\n\n\n- Your boss will likely ask you to do it!\n\n\n\nWhy use R for data manipulation ?\n========================================================\n\n- Faster than Excel\n\n- Automate the process, no more manual works!\n\n- Huge support on data wrangling. You can manipulate date using either :\n    + Base R codes\n    + Packages such as [**dplyr**](https://cran.r-project.org/web/packages/dplyr/vignettes/introduction.html) \n    \n\nSo, What is dplyr ? Why you should know it ?\n========================================================\n- It is an [**R package**](http://www.statmethods.net/interface/packages.html) - program that someone wrote and shared to the public\n\n- Created by Hadley Wickham\n\n- Advantages over base R\n + Faster\n + Easier to learn and understand\n \nDataset - Flights\n========================================================\n\nLet's use an example of Flights data! A dataset of 336776 flights departed from NYC in 2013\n\n```{r eval=FALSE}\ninstall.packages(\"nycflights13\")\n```\n```{r, eval=FALSE}\nlibrary(nycflights13)\nhead(flights)\n```\n```{r, echo=FALSE}\nlibrary(dplyr)\nlibrary(nycflights13)\nknitr::kable(head(flights), format = \"html\")\n```\n\n```{r}\ncolnames(flights)\n```\n\ndplyr - Single Table Verbs\n========================================================\n- The core components of dplyr\n\n- Main verbs provide basic function for data manipulation\n  + filter()  : Filtering data by rows\n  + arrange() : Sorting\n  + select()  : Choose columns\n  + mutate()  : Create new columns\n  + summarise() : summarize table\n  \n- These verbs can be used by itself or in combination!\n\n\nExample - Filter Rows with filters()\n========================================================\n\n- filter() allows you to get a subset of rows based on different criteria \n\n\nExample - Sort Rows with arrange()\n========================================================\n- Use arrange() to reorders your table based on criteria\n\n- Sort flights dataset by air_time\n\n```{r, eval=FALSE}\nlibrary(dplyr)\n\narrange(flights, air_time)\n```\n```{r, echo=FALSE}\nknitr::kable(arrange(flights, air_time), format = \"html\")\n\n```",
+    "created" : 1490245765458.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1478962336",
+    "id" : "78EE2D73",
+    "lastKnownWriteTime" : 1490279564,
+    "last_content_update" : 1490279564,
+    "path" : "E:/R/presentations/presentation_1.Rpres",
+    "project_path" : "presentation_1.Rpres",
+    "properties" : {
+        "docOutlineVisible" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_presentation"
+}

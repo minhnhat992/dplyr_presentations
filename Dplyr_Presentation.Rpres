@@ -1,0 +1,274 @@
+<style>
+body {
+    overflow: scroll;
+}
+</style>
+
+
+```{r, include=FALSE}
+library(dplyr)
+
+```
+
+Data Wrangling with R
+========================================================
+author: Minh Bui
+date: 3/24/2017
+autosize: true
+transition: zoom
+font-family: "Arial"
+width: 1500
+
+
+
+So, What is Data Wrangling ?
+========================================================
+Manipulate your "raw" data into different forms
+
+Examples
+
+* Filtering/sorting data
+
+* Calculate new columns from existing Ones
+
+* Removing or rename empty cells/values
+
+* Merge/join different table together
+
+* Create Excel-like pivot tables to summarize your data
+
+
+
+Why is it important ?
+========================================================
+
+- 80% of a data scientist's time will be spent on cleaning data
+
+
+- Your boss will likely ask you to do it!
+
+
+
+Why use R for data manipulation ?
+========================================================
+
+- Faster than Excel
+
+- Automate the process, no more manual works!
+
+- Huge support on data wrangling. You can manipulate date using either :
+    + Base R codes
+    + Packages such as [**dplyr**](https://cran.r-project.org/web/packages/dplyr/vignettes/introduction.html) 
+    
+
+So, What is dplyr ? Why you should know it ?
+========================================================
+- It is an [**R package**](http://www.statmethods.net/interface/packages.html) - program that someone wrote and shared to the public
+
+- Created by Hadley Wickham
+
+- Advantages over base R
+ + Faster
+ + Easier to learn and understand
+ 
+Dataset - Flights
+========================================================
+
+Let's use an example of Flights data! A dataset of 336776 flights departed from NYC in 2013
+
+```{r eval=FALSE}
+install.packages("nycflights13")
+```
+```{r, echo=TRUE}
+library(ggplot2)
+head(diamonds)
+```
+
+dplyr - Single Table Verbs
+========================================================
+- The core components of dplyr
+
+- Main verbs provide basic function for data manipulation
+  + filter()  : Filtering data by rows
+  + arrange() : Sorting
+  + select()  : Choose columns
+  + mutate()  : Create new columns
+  + summarise() : summarize table
+  
+- These verbs can be used by itself or in combination!
+
+
+Example - Filter Rows with filters()
+========================================================
+incremental: true
+
+- filter() allows you to get a subset of rows based on different criteria 
+
+- Diamonds with "Ideal" cut?
+```{r}
+library(dplyr)
+
+filter(diamonds, cut == "Ideal")
+```
+
+- Diamonds with "Ideal" cut and price over 400 ?
+```{r}
+filter(diamonds, cut == "Ideal", price > 400)
+```
+
+- Diamonds with either "Ideal" or "Premium" cut
+```{r}
+filter(diamonds, cut == "Ideal" | cut == "Premium")
+```
+
+
+Example - Sort Rows with arrange()
+========================================================
+incremental: true
+- Use arrange() to reorders your table based on criteria
+
+- Sort diamonds based on price 
+```{r}
+arrange(diamonds, price)
+```
+
+- Use desc() to sort descending
+```{r}
+arrange(diamonds, desc(price))
+```
+
+
+Example - Select columns with select()
+========================================================
+incremental: true
+
+- select() help you keep or remove columns
+- Keep *carat*, *cut* and *color* columns
+```{r}
+select(diamonds, carat, cut, color)
+```
+
+- Alternate way
+```{r}
+select(diamonds, carat : color)
+```
+
+- Remove *carat* from table
+```{r}
+select(diamonds, -carat)
+```
+
+- You can also rename columns with select()
+```{r}
+select(diamonds, new_color = color)
+```
+
+- If you want to keep all of the columns, use rename() instead
+```{r}
+rename(diamonds, new_color = color)
+```
+
+Example - Add new columns with mutate()
+========================================================
+incremental: true
+
+- mutate() allows you to create new columns from existing ones
+
+- What's price per carat ?
+```{r, eval = FALSE}
+mutate(diamonds, 'price per carat' = price/carat)
+```
+
+```{r, echo=FALSE}
+diamonds %>% 
+  select(carat, cut, color, clarity, price) %>% 
+  mutate('price per carat' = price/carat)
+```
+
+Example - Summarise values with summarise()
+========================================================
+#incremental: true
+- summarise() allows you to compute statistics (averange, max , min)
+
+- What's the average price in this table?
+```{r}
+summarise(diamonds, average_price = mean(price))
+```
+
+- You can create an Excel-like pivot table with summarise() and group_by ()
+
+- What's the average price for each *cut* ?
+```{r}
+group_by_cut <- group_by(diamonds, cut)
+
+summarise(group_by_cut, average_price = mean(price))
+```
+
+- How about average carat and depth for each cut ?
+```{r}
+summarise(group_by_cut, average_size = mean(carat), average_depth = mean(depth))
+```
+
+- Common functions (*sum*,*mean*, *max*, *min*, *count*, etc.)
+
+
+Chainning in dplyr
+========================================================
+- The reason why dplyr is popular!
+
+- Use this symbol %>%  to create a data pipelines
+ + We use %>% to connect one command from each other.
+ + The *output* of one command becomes the *input* for the next
+ 
+- Make elegant and readable codes !
+
+Examples of Chainning
+========================================================
+#incremental: true
+- What we want to do:
+ + Filter "Premium" cut
+ + Keep only *carat*, *cut*, *color*, *depth*, *price*
+ + Create a new column, named "price_per_carat"
+ 
+- Without chainning , your codes will look like this
+```{r}
+data <- filter(diamonds, cut == "Premium")
+data <- select(data, carat, cut, color, depth, price)
+data <- mutate(data, price_per_carat = price/carat )
+
+data
+```
+
+- Much nicer with chainning (I think...):
+```{r}
+diamonds %>% 
+  filter(cut == "Premium") %>% 
+  select(carat, cut, color, depth, price) %>% 
+  mutate(price_per_carat = price/carat)
+```
+
+- You can keep the chain forerver!
+```{r}
+# find the average price for each color and cut !
+diamonds %>% 
+  filter(cut == "Premium") %>% 
+  select(carat, cut, color, depth, price) %>% 
+  mutate(price_per_carat = price/carat) %>% 
+  group_by(cut, color) %>% 
+  summarise(average_price = mean(price))
+```
+
+Additional Information on Dplyr
+========================================================
+
+- This quick tutorial (https://cran.r-project.org/web/packages/dplyr/vignettes/introduction.html)
+- [Dplyr's cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+Thank You!
+========================================================
+type: section
+
+- LinkedIn : https://www.linkedin.com/in/minhbui1/
+
+- Source Codes for this presentation :
+
