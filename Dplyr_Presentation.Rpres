@@ -76,7 +76,9 @@ Dataset - Diamonds
 Let's use an example of the popular Diamonds dataset.
 
 ```{r eval=FALSE}
-install.packages("nycflights13")
+# packages to install 
+install.packages("dplyr")
+install.packages("ggplot2")
 ```
 ```{r, echo=TRUE}
 library(ggplot2)
