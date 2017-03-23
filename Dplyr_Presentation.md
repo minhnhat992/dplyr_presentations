@@ -12,7 +12,6 @@ Data Wrangling with R
 author: Minh Bui
 date: 3/24/2017
 autosize: true
-transition: zoom
 font-family: "Arial"
 width: 1500
 
@@ -68,10 +67,10 @@ So, What is dplyr ? Why you should know it ?
  + Faster
  + Easier to learn and understand
  
-Dataset - Flights
+Dataset - Diamonds
 ========================================================
 
-Let's use an example of Flights data! A dataset of 336776 flights departed from NYC in 2013
+Let's use an example of the popular Diamonds dataset.
 
 
 ```r
@@ -114,7 +113,6 @@ Example - Filter Rows with filters()
 incremental: true
 
 - filter() allows you to get a subset of rows based on different criteria 
-
 - Diamonds with "Ideal" cut?
 
 ```r
@@ -391,7 +389,7 @@ mutate(diamonds, 'price per carat' = price/carat)
 
 Example - Summarise values with summarise()
 ========================================================
-#incremental: true
+incremental: true
 - summarise() allows you to compute statistics (averange, max , min)
 
 - What's the average price in this table?
@@ -460,7 +458,7 @@ Chainning in dplyr
 
 Examples of Chainning
 ========================================================
-#incremental: true
+incremental: true
 - What we want to do:
  + Filter "Premium" cut
  + Keep only *carat*, *cut*, *color*, *depth*, *price*
@@ -554,9 +552,8 @@ Additional Information on Dplyr
 
 Thank You!
 ========================================================
-type: section
 
 - LinkedIn : https://www.linkedin.com/in/minhbui1/
 
-- Source Codes for this presentation :
+- Source Codes for this presentation : https://github.com/minhnhat992/dplyr_presentations/tree/master
 
